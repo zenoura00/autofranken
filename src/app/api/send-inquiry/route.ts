@@ -91,33 +91,36 @@ export async function POST(request: NextRequest) {
       uploadError = 'Bild-Upload nur auf Vercel verfügbar'
     }
 
-    // Save lead locally
-    try {
-      saveLead({
-        timestamp: timestamp || new Date().toISOString(),
-        brand: brand || '',
-        model: model || '',
-        year: year || '',
-        mileage: mileage || '',
-        fuel: fuel || '',
-        priceExpectation: (formData.get('priceExpectation') as string) || '',
-        name: name || '',
-        email: email || '',
-        phone: phone || '',
-        location: location || '',
-        message: message || '',
-        page_url: page_url || '',
-        page_path: page_path || '',
-        referrer: referrer || '',
-        device_type: device_type || '',
-        lead_source_url: lead_source_url || '',
-        lead_source_path: lead_source_path || '',
-        click_source: click_source || '',
-        image_urls: imageUrls
-      })
-      console.log('✅ Lead lokal gespeichert')
-    } catch (err) {
-      console.error('❌ Lead konnte nicht gespeichert werden:', err)
+    // Save lead locally (only works in development, not on Vercel's read-only filesystem)
+    const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV
+    if (!isVercel) {
+      try {
+        saveLead({
+          timestamp: timestamp || new Date().toISOString(),
+          brand: brand || '',
+          model: model || '',
+          year: year || '',
+          mileage: mileage || '',
+          fuel: fuel || '',
+          priceExpectation: (formData.get('priceExpectation') as string) || '',
+          name: name || '',
+          email: email || '',
+          phone: phone || '',
+          location: location || '',
+          message: message || '',
+          page_url: page_url || '',
+          page_path: page_path || '',
+          referrer: referrer || '',
+          device_type: device_type || '',
+          lead_source_url: lead_source_url || '',
+          lead_source_path: lead_source_path || '',
+          click_source: click_source || '',
+          image_urls: imageUrls
+        })
+        console.log('✅ Lead lokal gespeichert')
+      } catch (err) {
+        console.error('❌ Lead konnte nicht gespeichert werden:', err)
+      }
     }
 
     // Log the inquiry
@@ -215,11 +218,12 @@ ${bilderHtml}
           click_source,
         }
 
-        await fetch(SHEETS_WEBHOOK_URL, {
+        const sheetsRes = await fetch(SHEETS_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(sheetsPayload),
         })
+        console.log('✅ Sheets webhook sent, status:', sheetsRes.status)
       } catch (err) {
         console.error('❌ Sheets webhook failed:', err)
       }
@@ -259,7 +263,8 @@ ${bilderHtml}
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'User-Agent': 'FrankenAutoAnkauf/1.0'
       },
       body: JSON.stringify(requestBody)
     })
