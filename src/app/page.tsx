@@ -246,6 +246,30 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="px-3 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg hover:text-orange-600 transition"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <Link
+                  href="/#form"
+                  className="mt-2 px-4 py-3 bg-orange-600 text-white rounded-lg text-center font-semibold hover:bg-orange-700 transition"
+                  onClick={() => { setMobileMenuOpen(false); setLeadSource("mobile_menu_cta"); }}
+                >
+                  Jetzt Angebot anfordern
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
