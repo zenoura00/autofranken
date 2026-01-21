@@ -59,7 +59,10 @@ export async function POST(request: NextRequest) {
 
     const imageUrls: string[] = []
     let uploadError: string | null = null
-    if (fileCount > 0) {
+
+    // Only attempt Blob upload if token is configured (works on Vercel, not locally)
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+    if (fileCount > 0 && blobToken) {
       try {
         const ts = Date.now()
         const brandSlug = safeSlug(brand)
@@ -81,7 +84,11 @@ export async function POST(request: NextRequest) {
       } catch (err) {
         uploadError = err instanceof Error ? err.message : 'unknown upload error'
         console.error('❌ Blob upload failed:', uploadError)
+        // Continue without images - don't fail the whole request
       }
+    } else if (fileCount > 0) {
+      console.log('⚠️ Blob token not configured, skipping image upload')
+      uploadError = 'Bild-Upload nur auf Vercel verfügbar'
     }
 
     // Save lead locally
@@ -257,7 +264,20 @@ ${bilderHtml}
       body: JSON.stringify(requestBody)
     })
 
-    const result = await web3Response.json()
+    // Handle non-JSON responses (e.g., HTML error pages)
+    const responseText = await web3Response.text()
+    let result: { success: boolean; message?: string }
+    try {
+      result = JSON.parse(responseText)
+    } catch {
+      console.error('❌ Web3Forms returned non-JSON response:', responseText.substring(0, 200))
+      // If Web3Forms fails, still save the lead and return success to user
+      await forwardToSheets()
+      return NextResponse.json({
+        success: true,
+        message: 'Anfrage erfolgreich gesendet! (E-Mail wird nachgesendet)'
+      })
+    }
     console.log('Web3Forms response:', JSON.stringify(result))
 
         if (result.success) {
