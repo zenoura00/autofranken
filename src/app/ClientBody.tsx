@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
-export default function ClientBody({
+export function ClientBody({
   children,
 }: {
   children: React.ReactNode;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ClientBody from "./ClientBody";
+import { ClientBody } from "./ClientBody";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -72,9 +72,6 @@ export const metadata: Metadata = {
     canonical: "https://frankenautoankauf.de",
   },
   category: "Automotive",
-  verification: {
-    google: "verification-code-here",
-  },
 };
 
 // Structured Data for Google Rich Snippets
@@ -114,18 +111,14 @@ const structuredData = {
     "geoRadius": "100000"
   },
   "sameAs": [],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "127"
-  }
+  // Hinweis: Kein AggregateRating ohne verifizierbare, öffentlich einsehbare Reviews.
 };
 
 const localBusinessData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Auto Ankauf Franken",
-  "image": "https://frankenautoankauf.de/logo.png",
+  "image": "https://frankenautoankauf.de/brand/logo-light.png",
   "telephone": "+49-176-32333561",
   "email": "info@frankenautoankauf.de",
   "address": {
@@ -159,6 +152,21 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-YGLT1K9TFD"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YGLT1K9TFD');
+          `}
+        </Script>
 
         {/* Structured Data */}
         <script
