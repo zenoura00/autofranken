@@ -10,6 +10,5 @@ export const navItems: NavItem[] = [
   { label: "Auto verkaufen", href: "/auto-verkaufen" },
   { label: "Fälle", href: "/faelle" },
   { label: "Städte", href: "/staedte" },
-  { label: "Sofort verkaufen", href: "/auto-verkaufen-sofort" },
   { label: "Kontakt", href: "/#form" },
 ]
