@@ -288,32 +288,32 @@ export default function Home() {
           <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-5xl">
             {/* VW */}
             <button onClick={() => scrollToFormWithBrand("Volkswagen")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "Volkswagen" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/3578160969.png" alt="Volkswagen" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
+              <img src="/brand-logos/vw.webp" alt="Volkswagen" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </button>
 
             {/* BMW */}
             <button onClick={() => scrollToFormWithBrand("BMW")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "BMW" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/2880173070.png" alt="BMW" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
+              <img src="/brand-logos/bmw.webp" alt="BMW" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </button>
 
             {/* Mercedes-Benz */}
             <button onClick={() => scrollToFormWithBrand("Mercedes-Benz")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "Mercedes-Benz" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/365396571.png" alt="Mercedes-Benz" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
+              <img src="/brand-logos/mercedes.webp" alt="Mercedes-Benz" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </button>
 
             {/* Audi */}
             <button onClick={() => scrollToFormWithBrand("Audi")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "Audi" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/1249359374.png" alt="Audi" className="w-20 h-10 md:w-32 md:h-16 object-contain" />
+              <img src="/brand-logos/audi.webp" alt="Audi" className="w-20 h-10 md:w-32 md:h-16 object-contain" />
             </button>
 
             {/* Opel */}
             <button onClick={() => scrollToFormWithBrand("Opel")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "Opel" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/4107142477.png" alt="Opel" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
+              <img src="/brand-logos/opel.webp" alt="Opel" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </button>
 
             {/* Ford */}
             <button onClick={() => scrollToFormWithBrand("Ford")} className={`bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all hover:scale-[1.02] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md flex items-center justify-center min-h-[100px] md:min-h-[140px] ${selectedFeaturedBrand === "Ford" ? 'ring-2 ring-orange-500' : ''}`}>
-              <img src="https://ext.same-assets.com/1493698612/2625615857.png" alt="Ford" className="w-20 h-10 md:w-32 md:h-16 object-contain" />
+              <img src="/brand-logos/ford.webp" alt="Ford" className="w-20 h-10 md:w-32 md:h-16 object-contain" />
             </button>
           </div>
 
