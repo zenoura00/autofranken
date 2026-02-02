@@ -189,6 +189,7 @@ ${dashboardUrl}
       if (!SHEETS_WEBHOOK_URL) return
       try {
         const sheetsPayload = {
+          event_type: 'form_submit',
           id: leadId,
           brand: brand || '',
           model: model || '',

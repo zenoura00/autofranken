@@ -1,11 +1,19 @@
 # Google Sheets Lead Speicherung (Webhook)
 
-Dieses Projekt kann Leads optional in ein Google Sheet schreiben. Dafür nutzt du ein Google Apps Script als Webhook.
+Dieses Projekt kann Leads und Tracking-Events in ein Google Sheet schreiben. Dafür nutzt du ein Google Apps Script als Webhook.
+
+## Tracking Events
+
+Das System trackt automatisch folgende Events:
+- **whatsapp_click** - Klick auf WhatsApp-Button
+- **phone_click** - Klick auf Anruf-Button
+- **form_submit** - Absenden des Kontaktformulars
 
 ## 1) Google Sheet erstellen
 - Google Drive → Neues Google Sheet
-- Tab-Name z.B. `Leads`
+- Tab-Name z.B. `Events` (für alle Tracking-Events)
 - Spalten in Zeile 1 anlegen (Empfehlung):
+  - event_type (whatsapp_click, phone_click, form_submit)
   - timestamp
   - name
   - phone
@@ -33,10 +41,11 @@ Im Google Sheet: **Erweiterungen → Apps Script** und den Inhalt von `Code.gs` 
 ```javascript
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Leads') || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Events') || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     var data = JSON.parse(e.postData.contents || '{}');
 
     var row = [
+      data.event_type || 'form_submit',
       data.timestamp || new Date().toISOString(),
       data.name || '',
       data.phone || '',
@@ -87,4 +96,7 @@ In Vercel:
 Dann neu deployen.
 
 ## Test
-Nach dem Absenden des Formulars sollte im Sheet eine neue Zeile erscheinen.
+Nach dem:
+- Klick auf WhatsApp-Button → Zeile mit `event_type = whatsapp_click`
+- Klick auf Anruf-Button → Zeile mit `event_type = phone_click`
+- Absenden des Formulars → Zeile mit `event_type = form_submit` + alle Formulardaten
